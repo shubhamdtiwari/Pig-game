@@ -12,7 +12,6 @@ const player0El = document.querySelector('.player--0');
 const player1El = document.querySelector('.player--1');
 
 let currentSum = 0;
-let score0 = 0;
 let activePlayer = 0;
 const scores = [0, 0];
 
@@ -42,5 +41,7 @@ btnRoll.addEventListener('click', function () {
 });
 
 btnHold.addEventListener('click', function () {
+    scores[activePlayer] = currentSum;
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
 
 });
