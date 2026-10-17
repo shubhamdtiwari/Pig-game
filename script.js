@@ -13,6 +13,7 @@ const player1El = document.querySelector('.player--1');
 
 let currentSum = 0;
 let activePlayer = 0;
+let playing = true;
 const scores = [0, 0];
 
 score0El.textContent = 0;
@@ -29,6 +30,7 @@ const switchPlayer = function () {
 
 
 btnRoll.addEventListener('click', function () {
+    if(playing) {
     const num = Math.trunc(Math.random() * 6) + 1;
     diceEl.classList.remove('hidden');
     diceEl.src = `dice-${num}.png`;
@@ -39,21 +41,24 @@ btnRoll.addEventListener('click', function () {
     } else {
         switchPlayer();
     }
-
+};
 });
 
 btnHold.addEventListener('click', function () {
+    if(playing){
     // adding current score to active player's score 
     scores[activePlayer] += currentSum;
     document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
 
     //cheak if total score is >= 100
-    if (scores[activePlayer] >= 100) {
+    if (scores[activePlayer] >= 10) {
+        playing = false;
+        document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');
+        document.querySelector(`.player--${activePlayer}`).classList.remove('player--active');
 
+    } else {
+        // switching the player
+        switchPlayer();
     }
-
-    // switching the player
-    switchPlayer();
-
-
+};
 });
